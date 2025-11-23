@@ -21,7 +21,7 @@ export default function Services() {
           {servicesData.map((service) => (
             <Link
               key={service.id}
-              to={`/services/${service.id}`}
+              to={`/services/${service.title.replace(/[\s/]+/g, '-').toLowerCase()}`}
               className="group bg-1-50/50 p-8 rounded-2xl border-2 border-1-200 
               hover:border-1-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 block"
             >

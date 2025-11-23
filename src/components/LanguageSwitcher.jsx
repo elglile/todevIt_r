@@ -20,10 +20,9 @@ function LanguageSwitcher() {
       <div className="w-6 h-6 rounded-full overflow-hidden border-2 border-1-300">
         {lang === "FR" ? (
           // French Flag
-          <div className="w-full h-full flex">
-            <div className="w-1/3 h-full bg-[#0055A4]"></div>
-            <div className="w-1/3 h-full bg-white"></div>
-            <div className="w-1/3 h-full bg-[#EF4135]"></div>
+          <div className="">
+            {/* <span className="text-white text-[10px] font-bold">UK</span> */}
+            <img src={assets.fre} alt="UK" />
           </div>
         ) : (
           // English/UK Flag simplified

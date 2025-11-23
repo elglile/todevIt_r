@@ -51,7 +51,7 @@ function Footer() {
                 {servicesData.map((service) => (
                   <Link
                     key={service.id}
-                    to={`/services/${service.id}`}
+                    to={`/services/${service.title.replace(/\s+/g, '-').toLowerCase()}`}
                   >
                     <h3
                       className="text-[14px] font-serif text-gray-400 hover:text-1-500 transition-colors"
@@ -98,7 +98,7 @@ function Footer() {
           <span className="text-1-500 font-semibold ml-1">{siteInfo.name}</span>.{" "}
           {siteInfo.rights}
         </div>
-              <div className="flex gap-6">
+              {/* <div className="flex gap-6">
                 <a href="#" className="text-gray-400 hover:text-[#00C853] transition-colors text-sm">
                   Terms of Service
                 </a>
@@ -108,7 +108,7 @@ function Footer() {
                 <a href="#" className="text-gray-400 hover:text-[#00C853] transition-colors text-sm">
                   Cookie Policy
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

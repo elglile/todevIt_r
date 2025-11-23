@@ -5,7 +5,7 @@ import HeroServices from "./HeroServices";
 export default function Hero() {
     return (
         <section className="relative bg-[#111111] text-white px-5 md:px-10 py-32 lg:p-28 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-1-700 via-transparent to-[#00C853]/10"></div>
+            <div className="z-1 inset-0 bg-gradient-to-br from-1-700 via-transparent to-[#00C853]/10"></div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid md:grid-cols-2 gap-12 items-center">

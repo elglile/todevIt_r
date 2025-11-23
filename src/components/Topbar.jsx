@@ -1,6 +1,7 @@
 import React from "react";
 import { MdEmail } from "react-icons/md";
 import { socialMedia } from "../Data";
+import { Link } from "react-router-dom";
 
 const Topbar = () => {
     const phone = socialMedia.find((i) => i.name === "phone");
@@ -41,12 +42,12 @@ const Topbar = () => {
                     </div>
                 </div>
                 <div>
-                    <a
-                        href=""
+                    <Link
+                        to={"/contact"}
                         className="text-1-600 font-bold text-lg text-center my-auto px-8"
                     >
                         Obtenir un devis
-                    </a>
+                    </Link>
                 </div>
             </section>
         </>

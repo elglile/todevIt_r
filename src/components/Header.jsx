@@ -1,7 +1,7 @@
 import React from 'react'
 import { assets } from '../assets/assets'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu } from '../Data'
+import { Menu, servicesData } from '../Data'
 import Topbar from './Topbar'
 import { MdLanguage } from 'react-icons/md'
 import { FaSearch } from 'react-icons/fa'
@@ -11,6 +11,9 @@ import MobileNav from './MobileNav'
 
 const Header = () => {
   const location = useLocation();
+  const [aff, setaff] = React.useState(false);
+      const Services = servicesData.map(el => el.title);
+  
   return (
     <>
       <Topbar />
@@ -44,11 +47,44 @@ const Header = () => {
               </Link>
             );
           })}
+      <div className="relative group text-[#333] p-2">
+
+  <span className="cursor-pointer" onMouseOver={()=>setaff(true)}>Services</span>
+
+  <ul
+    className={`
+      absolute left-0 mt-2 w-50 bg-white text-black rounded shadow-lg 
+      opacity-0 invisible group-hover:opacity-100 group-hover:visible 
+      transition-all duration-500 z-20 
+    ${!aff && ' hidden' }`}
+    onClick={()=> setaff(false)}
+  >
+      {
+                            [...Services].map(
+                                (item,i)=>(
+                        <Link to={`/services/${item.replace(/[\s/]+/g, '-').toLowerCase()}`} key={i} 
+                        onClick={()=>setOpen(false)}><li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm">{item}</li></Link>
+
+                                )
+                            )
+                        }
+ </ul>
+
+</div>
+
         </nav>
 
-        <div className='flex items-center justify-center '>
+        <div className='flex items-center justify-center lg:flex hidden md:flex'>
+           <LanguageSwitcher />
           <SearchBar />
-          <LanguageSwitcher />
+         
+        </div>
+        {/* mobile version */}
+        <div className='flex items-center justify-center lg:hidden md:hidden z-50'>
+           <SearchBar />
+           <LanguageSwitcher />
+          
+         
         </div>
       </header>
     </>
