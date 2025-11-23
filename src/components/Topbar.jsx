@@ -11,7 +11,7 @@ const Topbar = () => {
             <section className="hidden lg:flex items-center justify-center border-b border-gray-300 text-[16px] font-mono ">
                 <div>
                     <a
-                        href=""
+                        href={email.url}
                         className="  m-auto  py-4 flex items-center justify-center  w-full hover:text-1-900 px-8"
                     >
                         {email.icon}
