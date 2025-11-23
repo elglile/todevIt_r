@@ -3,7 +3,7 @@ import { FaSearch } from "react-icons/fa";
 import { servicesData } from "../Data";
 import { Link } from "react-router-dom";
 
-function SearchBar() {
+function SearchBar({func}) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const boxRef = useRef(null);
@@ -59,14 +59,13 @@ function SearchBar() {
         >
           {filtered.length > 0 ? (
             filtered.map((item, i) => (
-              <Link onClick={()=>{setaff(false); setQuery("");}}
+              <Link onClick={()=>{setaff(false); setQuery(""); func();}}
                 key={i} to={"/services/"+item.title.replace(/[\s/]+/g, '-').toLowerCase()}
               ><div className="px-4 py-2 hover:bg-gray-100 cursor-pointer" ><li
               
               className="w-full block"
               >
                 {item.title}
-               
               </li> 
               <li className=""><small>{item.longDesc.slice(0,30)+"..."}</small>
               </li>

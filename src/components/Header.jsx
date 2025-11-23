@@ -1,10 +1,9 @@
-import React from 'react'
+import React , {useState} from 'react'
 import { assets } from '../assets/assets'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, servicesData } from '../Data'
 import Topbar from './Topbar'
-import { MdLanguage } from 'react-icons/md'
-import { FaSearch } from 'react-icons/fa'
+
 import SearchBar from './SearchBar'
 import LanguageSwitcher from './LanguageSwitcher'
 import MobileNav from './MobileNav'
@@ -12,8 +11,15 @@ import MobileNav from './MobileNav'
 const Header = () => {
   const location = useLocation();
   const [aff, setaff] = React.useState(false);
+  const [openn, setOpenn] =useState(false);
       const Services = servicesData.map(el => el.title);
-  
+  function toggleMobile() {
+    setOpenn(!openn);
+  }
+
+  function closeMobile() {
+    setOpenn(false);
+  }
   return (
     <>
       <Topbar />
@@ -23,8 +29,12 @@ const Header = () => {
           lg:flex lg:items-center  lg:justify-center'
       >
         <div className=' flex  items-center'>
-        <MobileNav Menu={Menu} />
-        <Link to={"/"}>
+  <MobileNav 
+        Menu={Menu} 
+        open={openn} 
+        toggle={toggleMobile}
+        close={closeMobile}
+      />        <Link to={"/"}>
                 <img src={assets.logo1} className='w-20  p-0  ' alt="" />
         </Link>
         </div>
@@ -63,7 +73,7 @@ const Header = () => {
                             [...Services].map(
                                 (item,i)=>(
                         <Link to={`/services/${item.replace(/[\s/]+/g, '-').toLowerCase()}`} key={i} 
-                        onClick={()=>setOpen(false)}><li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm">{item}</li></Link>
+                        ><li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm">{item}</li></Link>
 
                                 )
                             )
@@ -76,12 +86,12 @@ const Header = () => {
 
         <div className='flex items-center justify-center lg:flex hidden md:flex'>
            <LanguageSwitcher />
-          <SearchBar />
+          <SearchBar  func={closeMobile}/>
          
         </div>
         {/* mobile version */}
         <div className='flex items-center justify-center lg:hidden md:hidden z-50'>
-           <SearchBar />
+           <SearchBar func={closeMobile}/>
            <LanguageSwitcher />
           
          
