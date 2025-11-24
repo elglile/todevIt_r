@@ -65,8 +65,8 @@ export const socialMedia = [
   {
     name: "email",
     icon: <MdEmail size={24} className="text-1-700 mx-2" />,
-    url: "https://twitter.com/yourprofile",
-    text: "todevit@gmail.com",
+    url: "mailto:todevit@outlook.com",
+    text: "todevit@outlook.com",
     title: "Send us an email",
   },
 ];
