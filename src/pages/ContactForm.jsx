@@ -7,6 +7,7 @@ import PageHeader from "../components/PageHeader";
 export default function ContactForm() {
     const [formData, setFormData] = useState({
         name: "",
+        email: "",
         phone: "",
         message: "",
     });
@@ -18,28 +19,73 @@ export default function ContactForm() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const sendEmail = (e) => {
-        e.preventDefault();
-        setLoading(true);
+    // const sendEmail = (e) => {
+    //     e.preventDefault();
+    //     setLoading(true);
 
-        emailjs
-            .send(
-                "YOUR_SERVICE_ID",
-                "YOUR_TEMPLATE_ID",
-                {
-                    name: formData.name,
-                    phone: formData.phone,
-                    message: formData.message,
-                },
-                "YOUR_PUBLIC_KEY"
-            )
-            .then(() => {
-                setSent(true);
-                setLoading(false);
-                setFormData({ name: "", phone: "", message: "" });
-            })
-            .catch(() => setLoading(false));
-    };
+    //     emailjs
+    //         .send(
+    //             "service_z1gx9dd",     
+    //             "template_qtzm3jd",    
+    //             {
+    //                 name: formData.name,
+    //                 email: formData.email,
+    //                 phone: formData.phone,
+    //                 message: formData.message,
+    //             },
+    //             "f8LAGJRmRyY_x-uC3"   
+    //         )
+    //         .then(() => {
+    //             setSent(true);
+    //             setLoading(false);
+    //             setFormData({ name: "", email: "", phone: "", message: "" });
+    //         })
+    //         .catch((err) => {
+    //             console.error("Email error:", err);
+    //             setLoading(false);
+    //         });
+    // };
+
+
+    const sendEmail = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const sendToMe = emailjs.send(
+        "service_z1gx9dd",
+        "template_qtzm3jd",
+        {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            message: formData.message,
+        },
+        "f8LAGJRmRyY_x-uC3"
+    );
+
+    const sendToUser = emailjs.send(
+        "service_z1gx9dd",
+        "template_ojyo5d3", 
+        {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            message: formData.message,
+        },
+        "f8LAGJRmRyY_x-uC3"
+    );
+
+    Promise.all([sendToMe, sendToUser])
+        .then(() => {
+            setSent(true);
+            setLoading(false);
+            setFormData({ name: "", email: "", phone: "", message: "" });
+        })
+        .catch((err) => {
+            console.error("Email error:", err);
+            setLoading(false);
+        });
+};
 
     return (
         <>
@@ -53,44 +99,65 @@ export default function ContactForm() {
                     <h2 className="text-4xl md:text-4xl font-bold text-1-900 mb-4">
                         Get in touch
                     </h2>
-                    <p className="w-5/6 mb-5 text-[18px] leading-[30px] align-baselin outline-0 text-gray-400"
-                    style={{fontFamily: 'inherit', fontWeight : 'inherit', fontStyle: 'inherit', boxSizing: 'border-box' }}>
-                        TodevIt is a modern digital agency specializing in creating web solutions and managing online communication. We offer web development, UI/UX design, digital marketing, social media management, content creation, and comprehensive support to strengthen your company's digital presence.
+                    <p
+                        className="w-5/6 mb-5 text-[18px] leading-[30px] align-baselin outline-0 text-gray-400"
+                        style={{
+                            fontFamily: "inherit",
+                            fontWeight: "inherit",
+                            fontStyle: "inherit",
+                            boxSizing: "border-box",
+                        }}
+                    >
+                        TodevIt is a modern digital agency specializing in creating web
+                        solutions and managing online communication. We offer web
+                        development, UI/UX design, digital marketing, social media
+                        management, content creation, and comprehensive support to
+                        strengthen your company's digital presence.
                     </p>
-                    <div className="space-y-4">
-                    {socialMedia
-                        .filter((item) => item.name === "phone" || item.name === "email")
-                        .map((item) => (
-                        <div
-                            key={item.name}
-                            className="flex items-center gap-3 space-y-3"
-                        >
-                            <span className="px-2 py-3 shadow shadow-gray-200 rounded-xs">
-                                {item.icon}
-                            </span>
-                            <div className="flex flex-col">
-                            <span className="text-xl font-semibold ">{item.title}:</span>
-                            <span className="text-lg font-medium text-gray-500">{item.text}</span>
-                            </div>
-                        </div>
-                        ))}
-                    </div>
 
+                    <div className="space-y-4">
+                        {socialMedia
+                            .filter((item) => item.name === "phone" || item.name === "email")
+                            .map((item) => (
+                                <div key={item.name} className="flex items-center gap-3 space-y-3">
+                                    <span className="px-2 py-3 shadow shadow-gray-200 rounded-xs">
+                                        {item.icon}
+                                    </span>
+                                    <div className="flex flex-col">
+                                        <span className="text-xl font-semibold ">
+                                            {item.title}:
+                                        </span>
+                                        <span className="text-lg font-medium text-gray-500">
+                                            {item.text}
+                                        </span>
+                                    </div>
+                                </div>
+                            ))}
+                    </div>
                 </div>
+
                 <form
                     onSubmit={sendEmail}
                     className="space-y-4 bg-white p-6 rounded-xl shadow-[0_3px_15px_rgba(0,0,0,0.08)] "
                 >
-                    {/* Title */}
                     <h3 className="text-xl font-bold text-gray-800 mb-3">Write to us :</h3>
 
-                    {/* Inputs */}
                     <input
                         type="text"
                         name="name"
                         placeholder="Nom *"
                         className="w-full p-3 border border-gray-100 bg-gray-200/50 rounded-sm focus:border-gray-300 focus:ring-gray-300 focus:ring-1 outline-none transition"
                         value={formData.name}
+                        onChange={handleChange}
+                        required
+                    />
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email *"
+                        className="w-full p-3 border border-gray-100 bg-gray-200/50 rounded-sm focus:border-gray-300 focus:ring-gray-300 focus:ring-1 outline-none transition"
+                        value={formData.email}
                         onChange={handleChange}
                         required
                     />
@@ -114,32 +181,35 @@ export default function ContactForm() {
                         required
                     />
 
-                    {/* Buttons */}
                     <div className="flex items-center gap-4 pt-2">
                         <button
                             type="submit"
-                            className="bg-[#ff7b00] flex items-center gap-2 text-white font-semibold px-6 py-3 rounded-lg shadow-sm 
-          hover:bg-[#ff6a00] transition"
+                            className="bg-[#ff7b00] flex items-center gap-2 text-white font-semibold px-6 py-3 rounded-lg shadow-sm hover:bg-[#ff6a00] transition"
                         >
                             <FiSend size={18} />
                             {loading ? "Envoi..." : "Envoyer"}
                         </button>
 
-                        <button
-                            type="button"
-                            onClick={() => {
-                                const text = `Nom: ${formData.name}%0ATel: ${formData.phone}%0AMessage: ${formData.message}`;
-                                window.open(`https://wa.me/212687976771?text=${text}`, "_blank");
-                            }}
-                            className="bg-green-600 flex items-center gap-2 text-white font-semibold px-6 py-3 rounded-lg shadow-sm 
-          hover:bg-green-700 transition"
-                        >
-                            <FiMessageCircle size={18} />
-                            WhatsApp
-                        </button>
+<button
+    type="button"
+    onClick={() => {
+        const text = `Nom: ${formData.name}\nEmail: ${formData.email}\nTel: ${formData.phone}\nMessage: ${formData.message}`;
+
+        const encodedText = encodeURIComponent(text);
+
+        window.open(
+            `https://wa.me/212687976771?text=${encodedText}`,
+            "_blank"
+        );
+    }}
+    className="bg-green-600 flex items-center gap-2 text-white font-semibold px-6 py-3 rounded-lg shadow-sm hover:bg-green-700 transition"
+>
+    <FiMessageCircle size={18} />
+    WhatsApp
+</button>
+
                     </div>
 
-                    {/* Success message */}
                     {sent && (
                         <p className="text-green-600 font-semibold mt-2">
                             Message envoyé avec succès !
@@ -147,8 +217,6 @@ export default function ContactForm() {
                     )}
                 </form>
             </section>
-
         </>
-
     );
 }
