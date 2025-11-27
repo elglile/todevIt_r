@@ -15,7 +15,7 @@ export default function PageHeader() {
     const title = pageTitles[currentPath] || "Page";
 
     return (
-        <section className="py-16 bg-[#f5f7fc] text-center relative overflow-hidden">
+        <section className="py-16 bg-gradient-to-br from-1-700 via-transparent to-[#00C853]/10 text-center relative overflow-hidden">
             {/* Decorative dots (like your screenshot) */}
             <span className="w-2 h-2 bg-orange-400 rounded-full absolute top-10 left-10"></span>
             <span className="w-2 h-2 bg-blue-500 rounded-full absolute top-6 right-20"></span>
